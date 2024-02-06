@@ -18,6 +18,7 @@ namespace TCPServerFrameworkLib.server
         private const int SEC = 1000;
         private readonly IPAddress ListOnIPAddress = IPAddress.Any;
         private bool running = true;
+        private readonly   List<Task> clients = new List<Task>();
 
         //properties
         /// <summary>
@@ -65,11 +66,13 @@ namespace TCPServerFrameworkLib.server
                     Console.WriteLine("Client incoming");
                     Console.WriteLine($"remote (ip,port) = ({client.Client.RemoteEndPoint})");
 
-                    Task.Run(() =>
-                    {
-                        TcpClient tmpClient = client;
-                        DoOneClient(client);
-                    });
+                    clients.Add(
+                        Task.Run(() =>
+                            {
+                                TcpClient tmpClient = client;
+                                DoOneClient(client);
+                            })
+                        );
                 }
                 else // der er PT ingen klient
                 {
@@ -77,6 +80,8 @@ namespace TCPServerFrameworkLib.server
                 }
 
             }
+            // vente på alle task bliver færdige
+            Task.WaitAll(clients.ToArray());
         }
 
         private void DoOneClient(TcpClient sock)
