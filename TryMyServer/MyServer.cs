@@ -18,6 +18,14 @@ namespace TryMyServer
         {
         }
 
+        /// <summary>
+        /// Create an echo server with configuration from a file
+        /// </summary>
+        /// <param name="configFilePath">The path to the config file</param>
+        public MyServer(string configFilePath) : base(configFilePath)
+        {
+        }
+
         protected override void TcpServerWork(StreamReader sr, StreamWriter sw)
         {
             // echo
