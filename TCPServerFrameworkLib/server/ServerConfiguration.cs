@@ -9,20 +9,40 @@ namespace TCPServerFrameworkLib.server
 {
     public class ServerConfiguration
     {
-        public int ServerPort { get; set; }
-        public int ShutdownPort { get; set; }
-        public String ServerName { get; set; }
-        public SourceLevels DebugLevel { get; set; }
-        public String LogFilePath { get; set; }
+        /*
+         * Singleton => 3 ting
+         */
+        private static ServerConfiguration _instance = new ServerConfiguration(); // eager opretter altid objekt
 
-        public ServerConfiguration() // default settings
+        public static ServerConfiguration Instance { get { return _instance; } }
+
+        private ServerConfiguration()
         {
             ServerPort = 65000;
             ShutdownPort = ServerPort + 1;
             ServerName = "";
             DebugLevel = SourceLevels.Information;
             LogFilePath = ".";
-
         }
+
+        /*
+         * slut singleton
+         */
+
+        public int ServerPort { get; set; }
+        public int ShutdownPort { get; set; }
+        public String ServerName { get; set; }
+        public SourceLevels DebugLevel { get; set; }
+        public String LogFilePath { get; set; }
+
+        //public ServerConfiguration() // default settings
+        //{
+        //    ServerPort = 65000;
+        //    ShutdownPort = ServerPort + 1;
+        //    ServerName = "";
+        //    DebugLevel = SourceLevels.Information;
+        //    LogFilePath = ".";
+
+        //}
     }
 }

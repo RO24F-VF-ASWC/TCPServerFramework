@@ -74,7 +74,8 @@ namespace TCPServerFrameworkLib.server
         /// <param name="configFilePath">The path to the configurationfile</param>
         public AbstractTCPServer(String configFilePath)
         {
-            ServerConfiguration conf = new ServerConfiguration();
+            //ServerConfiguration conf = new ServerConfiguration();
+            ServerConfiguration conf = ServerConfiguration.Instance;
 
             String fullConfigFilename = configFilePath + @"\" + CONFIG_FILE;
             if (!File.Exists(fullConfigFilename))
